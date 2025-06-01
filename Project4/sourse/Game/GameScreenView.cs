@@ -19,12 +19,6 @@ namespace TheWanderingMan.Code.Game
             BulletView.Draw(spriteBatch, graphics, alpha);
             Health.Draw(spriteBatch, graphics);
             EnemyView.Draw(spriteBatch, graphics, GameScreenModel.CurrentRoom.Enemys);
-            if (GameScreenModel.CurrentRoom.IsEndRoom)
-            {
-                BulletView.DrawMoleBullets(spriteBatch, graphics, GameScreenModel.CurrentRoom.Boss.Bullets);
-                if (!GameScreenModel.CurrentRoom.Boss.IsDead)
-                    EnemyView.DrawMole(spriteBatch, graphics, GameScreenModel.CurrentRoom.Boss);
-            }
             MiniMapView.DrawMiniMap(spriteBatch, graphics, GameScreenModel.CurrentMap.floorPlan);
             PlayerStatsView.Draw(spriteBatch, graphics);
         }

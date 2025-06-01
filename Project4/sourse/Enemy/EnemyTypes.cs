@@ -5,6 +5,8 @@
         Fly,
         Slob,
         Spider,
+        ToxicFly,
+        LitleMole,
         Mole,
         Sonic
     }

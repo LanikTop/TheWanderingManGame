@@ -19,8 +19,8 @@ namespace TheWanderingMan.sourse.Bullet
             {
                 spriteBatch.Draw(
                     Texture,
-                    new Rectangle((int)bullet.Position.X - (int)(Room.RoomModel.tileSizeX * 0.225f) + Room.RoomModel.dx,
-                    (int)bullet.Position.Y - (int)(Room.RoomModel.tileSizeY * 0.225f) + Room.RoomModel.dy, BulletModel.BulletSize, BulletModel.BulletSize),
+                    new Rectangle((int)bullet.Position.X - BulletModel.BulletSizeX / 2 + Room.RoomModel.dx,
+                    (int)bullet.Position.Y - BulletModel.BulletSizeY / 2 + Room.RoomModel.dy, BulletModel.BulletSizeX, BulletModel.BulletSizeY),
                     new Color((255 * alpha) / 255, (255 * alpha) / 255, (255 * alpha) / 255));
             }
         }
@@ -31,8 +31,8 @@ namespace TheWanderingMan.sourse.Bullet
             {
                 spriteBatch.Draw(
                     Texture,
-                    new Rectangle((int)bullet.Position.X - (int)(Room.RoomModel.tileSizeX * 0.225f) + Room.RoomModel.dx,
-                    (int)bullet.Position.Y - (int)(Room.RoomModel.tileSizeY * 0.225f) + Room.RoomModel.dy, BulletModel.BulletSize, BulletModel.BulletSize),
+                    new Rectangle((int)bullet.Position.X - BulletModel.BulletSizeX / 2 + Room.RoomModel.dx,
+                    (int)bullet.Position.Y - BulletModel.BulletSizeY / 2 + Room.RoomModel.dy, BulletModel.BulletSizeX, BulletModel.BulletSizeY),
                     Color.Red);
             }
         }

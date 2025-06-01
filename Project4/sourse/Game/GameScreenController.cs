@@ -15,7 +15,7 @@ namespace TheWanderingMan.Code.Game
             if (!Game1.IsPause)
             {
                 PlayerController.Update(keyboardState, gameTime);
-                BulletController.Update(keyboardState);
+                BulletController.Update(keyboardState, gameTime);
             }
             GameScreenModel.Update(gameTime);
         }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Bullet;
+using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Room;
 
 namespace TheWanderingMan.sourse.Player
@@ -9,11 +10,14 @@ namespace TheWanderingMan.sourse.Player
     public static class PlayerModel
     {
         public static Vector2 Position { get; private set; } = new Vector2(RoomModel.tileSizeX * 6.5f, RoomModel.tileSizeY * 3.5f);
-        readonly static int SizeX = (int)(RoomModel.tileSizeX * 0.8f);
-        readonly static int SizeY = (int)(RoomModel.tileSizeY * 0.8f);
+        public readonly static int SizeX = (int)(RoomModel.tileSizeX * 0.8f);
+        public readonly static int SizeY = (int)(RoomModel.tileSizeY * 0.8f);
         public static Vector2 Direction { get; private set; } = new Vector2(0, 0);
         public static float Speed { get; private set; } = 8f;
-        private static bool IsFly = false;
+        public static float Damage { get; private set; } = 1f;
+        public static int MoneyCount { get; private set; } = 0;
+        public static bool IsFly { get; private set; } = false;
+        public static bool IsKnockbackAmulet { get; private set; } = false;
 
         public static bool IsInvulnerable { get; private set; }
         private static float knockbackForce = 200f;
@@ -57,12 +61,11 @@ namespace TheWanderingMan.sourse.Player
             Direction = Vector2.Zero;
             if (GameScreenModel.CurrentRoom.TreasureItems.Count != 0)
             {
-                var tileX = (int)Math.Floor(Position.X / RoomModel.tileSizeX);
-                var tileY = (int)Math.Floor(Position.Y / RoomModel.tileSizeY);
+                var TilePosition = GetTilePosition();
                 for (int i = 0;i < GameScreenModel.CurrentRoom.TreasureItems.Count;i++)
                 {
                     var treasure = GameScreenModel.CurrentRoom.TreasureItems[i];
-                    if (GameScreenModel.MoneyCount >= treasure.Cost && tileX == treasure.Position.X && tileY == treasure.Position.Y)
+                    if (MoneyCount >= treasure.Cost && TilePosition.X == treasure.Position.X && TilePosition.Y == treasure.Position.Y)
                     {
                         treasure.GetBust();
                         GameScreenModel.CurrentRoom.TreasureItems.RemoveAt(i);
@@ -79,7 +82,7 @@ namespace TheWanderingMan.sourse.Player
                         money.GetMoney();
                 }
             }
-            if (GameScreenModel.CurrentRoom.IsEndRoom && GameScreenModel.CurrentRoom.Enemys.Count == 0 && GameScreenModel.CurrentRoom.Boss.IsDead)
+            if (GameScreenModel.CurrentRoom.IsEndRoom && GameScreenModel.CurrentRoom.Enemys.Count == 0)
             {
                 var tileX = (int)Math.Floor(Position.X / RoomModel.tileSizeX);
                 var tileY = (int)Math.Floor(Position.Y / RoomModel.tileSizeY);
@@ -89,21 +92,11 @@ namespace TheWanderingMan.sourse.Player
                     Position = new Vector2(RoomModel.tileSizeX * 6.5f, RoomModel.tileSizeY * 3.5f);
                 }
             }
-            if (GameScreenModel.CurrentRoom.IsEndRoom)
-            {
-                for (int i = 0; i < GameScreenModel.CurrentRoom.Boss.Bullets.Count; i++)
-                {
-                    var moleBullet = GameScreenModel.CurrentRoom.Boss.Bullets[i];
-                    if (CheckCollisions.CheckCollisionWithBounds(GetPlayerHitBox(), moleBullet.GetBulletHitBox())
-                        || CheckCollisions.CheckCollisionWithBounds(moleBullet.GetBulletHitBox(), GetPlayerHitBox()))
-                        GetDamaged(moleBullet.GetBulletPosition());
-                }
-            }
         }
         public static Rectangle GetPlayerHitBox()
         {
-            return new Rectangle((int)Position.X - SizeX / 2,
-                (int)Position.Y - SizeY / 2, SizeX, SizeY);
+            return new Rectangle((int)Position.X - SizeX / 2 + 10,
+                (int)Position.Y - SizeY / 2 + 10, SizeX - 20, SizeY - 20);
         }
 
         public static void ChangeDirectionY(int i)
@@ -209,6 +202,18 @@ namespace TheWanderingMan.sourse.Player
             if (knockbackDirection != Vector2.Zero)
                 knockbackDirection.Normalize();
             knockbackVelocity = knockbackDirection * knockbackForce;
+            if (IsKnockbackAmulet)
+            {
+                EnemyModel.UpdateKnockbackForceForAmulet();
+                foreach (var enemy in GameScreenModel.CurrentRoom.Enemys)
+                {
+                    if ((enemy.Position - Position).Length() < 200)
+                    {
+                        enemy.GetDamaged(Position);
+                    }
+                }
+                EnemyModel.UpdateKnockbackForceBack();
+            }
         }
 
         public static int CheckMovingRoom()
@@ -247,6 +252,7 @@ namespace TheWanderingMan.sourse.Player
                     break;
             }
             SetPlayerPosition(newPos);
+            Health.ActiveHollyMental();
         }
 
         public static void MovePlayer(float dx, float dy)
@@ -264,6 +270,11 @@ namespace TheWanderingMan.sourse.Player
             Speed += dSpeed;
         }
 
+        public static void DamageUpPlayer(float dDamage)
+        {
+            Damage += dDamage;
+        }
+
         public static void SetPlayerDirection(Vector2 newDir)
         {
             Direction = newDir;
@@ -272,6 +283,23 @@ namespace TheWanderingMan.sourse.Player
         public static void GetFly()
         {
             IsFly = true;
+        }
+
+        public static void GetKnockbackAmulet()
+        {
+            IsKnockbackAmulet = true;
+        }
+
+        public static void GetMoney(int amount)
+        {
+            MoneyCount += amount;
+        }
+
+        public static Point GetTilePosition()
+        {
+            var tileX = (int)Math.Floor(Position.X / RoomModel.tileSizeX);
+            var tileY = (int)Math.Floor(Position.Y / RoomModel.tileSizeY);
+            return new Point(tileX, tileY);
         }
     }
 }

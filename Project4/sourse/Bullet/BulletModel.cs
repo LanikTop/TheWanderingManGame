@@ -9,22 +9,23 @@ namespace TheWanderingMan.sourse.Bullet
     {
         public Vector2 Position { get; private set; }
         public Vector2 Direction { get; private set; }
-        public readonly static int BulletSize = (int)(RoomModel.tileSizeX * 0.45);
+        public readonly static int BulletSizeX = (int)(RoomModel.tileSizeX * 0.45);
+        public readonly static int BulletSizeY = (int)(RoomModel.tileSizeY * 0.45);
         public static float Speed = 7f;
         public bool IsActive;
-        public static int PlayerFireCooldown = 40;
-        public static int timeSinceLastShot = 0;
-        public static bool SpectralTears = false;
+        public static float PlayerFireCooldown = 0.4f;
+        public static float timeSinceLastShot = 0f;
+        public static bool SpectralTears { get; private set; } = false;
 
-        public static void Update()
+        public static void Update(GameTime gameTime)
         {
-            timeSinceLastShot += 1;
+            timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds;
             for (int i = 0; i < GameScreenModel.Bullets.Count; i++)
             {
                 BulletModel bullet = GameScreenModel.Bullets[i];
                 bullet.Position += bullet.Direction * Speed;
-                Rectangle bound = new Rectangle((int)bullet.Position.X - (int)(RoomModel.tileSizeX * 0.225f),
-                    (int)bullet.Position.Y - (int)(RoomModel.tileSizeY * 0.225f), BulletSize, BulletSize);
+                Rectangle bound = new Rectangle((int)bullet.Position.X - BulletSizeX / 2,
+                    (int)bullet.Position.Y - BulletSizeY / 2, BulletSizeX, BulletSizeY);
                 if ((CheckCollisions.CheckCollisionWithMap(bound) && !SpectralTears)
                     || (bullet.Position.X + (int)(RoomModel.tileSizeX * 0.225f)) / RoomModel.tileSizeX > GameScreenModel.CurrentRoom.TileRoom.GetLength(1)
                     || (bullet.Position.X - (int)(RoomModel.tileSizeX * 0.225f)) / RoomModel.tileSizeX < 0
@@ -32,24 +33,12 @@ namespace TheWanderingMan.sourse.Bullet
                     || (bullet.Position.Y - (int)(RoomModel.tileSizeY * 0.225f)) / RoomModel.tileSizeY < 0)
                     GameScreenModel.Bullets.RemoveAt(i);
             }
-            if (GameScreenModel.CurrentRoom.IsEndRoom)
-            {
-                for (var i = 0; i < GameScreenModel.CurrentRoom.Boss.Bullets.Count; i++)
-                {
-                    BulletModel moleBullet = GameScreenModel.CurrentRoom.Boss.Bullets[i];
-                    moleBullet.Position += moleBullet.Direction * Speed;
-                    Rectangle bound = new Rectangle((int)moleBullet.Position.X - (int)(RoomModel.tileSizeX * 0.225f),
-                    (int)moleBullet.Position.Y - (int)(RoomModel.tileSizeY * 0.225f), BulletSize, BulletSize);
-                    if (CheckCollisions.CheckCollisionWithMap(bound))
-                        GameScreenModel.CurrentRoom.Boss.Bullets.RemoveAt(i);
-                }    
-            }
         }
 
         public Rectangle GetBulletHitBox()
         {
-            return new Rectangle((int)Position.X - BulletSize / 2,
-                (int)Position.Y - BulletSize / 2, BulletSize, BulletSize);
+            return new Rectangle((int)Position.X - BulletSizeX / 2,
+                (int)Position.Y - BulletSizeY / 2, BulletSizeX, BulletSizeY);
         }
 
         public Vector2 GetBulletPosition()
@@ -65,11 +54,11 @@ namespace TheWanderingMan.sourse.Bullet
                 Direction = direction,
                 IsActive = true,
             };
-            timeSinceLastShot = 0;
+            timeSinceLastShot = 0f;
             return bullet;
         }
 
-        public static BulletModel ShootBulletMole(Vector2 direction, Vector2 molePos)
+        public static BulletModel ShootEnemyBullet(Vector2 direction, Vector2 molePos)
         {
             BulletModel bullet = new BulletModel()
             {
@@ -129,6 +118,17 @@ namespace TheWanderingMan.sourse.Bullet
         public static void Spectral()
         {
             SpectralTears = true;
+        }
+
+        public static void UpdateBulletSeparately(BulletModel bullet)
+        {
+            bullet.Position += bullet.Direction * Speed;
+        }
+
+        public static void ChangePlayerFireCooldown(float dt)
+        {
+            if (PlayerFireCooldown > 0.2f)
+                PlayerFireCooldown -= dt;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TheWanderingMan.sourse.Map
         private bool TreasurAlready = false;
         private bool EndAlready = false;
         private bool ShopAlready = false;
+        public static bool ShowBossRoomAlways { get; private set; } = false;
 
         public Map()
         {
@@ -53,7 +54,7 @@ namespace TheWanderingMan.sourse.Map
                 ShopAlready = true;
                 floorPlan[y, x] = 4; // Shop
             }
-            else if (!EndAlready && neighbours == 1 && new Random().Next(1, 10) < 2 && floorplanCount > 10)
+            else if (!EndAlready && neighbours == 1 && new Random().Next(1, 10) < 2 && floorplanCount > 12)
             {
                 EndAlready = true;
                 floorPlan[y, x] = 3; // End
@@ -88,6 +89,11 @@ namespace TheWanderingMan.sourse.Map
             {
                 floorPlan[y, x - 1], floorPlan[y, x + 1], floorPlan[y - 1, x], floorPlan[y + 1, x]
             };
+        }
+
+        public static void SetShowBossRoomAlways()
+        {
+            ShowBossRoomAlways = true;
         }
     }
 }

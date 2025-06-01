@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace TheWanderingMan.sourse.Bullet
 {
     public static class BulletController
     {
-        public static void Update(KeyboardState keyboardState)
+        public static void Update(KeyboardState keyboardState, GameTime gameTime)
         {
             if (keyboardState.IsKeyDown(Keys.Left))
             {
@@ -22,7 +23,7 @@ namespace TheWanderingMan.sourse.Bullet
             {
                 BulletModel.ShotDown();
             }
-            BulletModel.Update();
+            BulletModel.Update(gameTime);
         }
     }
 }

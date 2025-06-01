@@ -19,7 +19,7 @@ namespace TheWanderingMan
             int rightTile = (int)Math.Floor((float)checkArea.Right / RoomModel.tileSizeX);
             int topTile = (int)Math.Floor((float)checkArea.Top / RoomModel.tileSizeY);
             int bottomTile = (int)Math.Floor((float)checkArea.Bottom / RoomModel.tileSizeY);
-            if (GameScreenModel.CurrentRoom.Enemys.Count == 0 && (GameScreenModel.CurrentRoom.Boss == null || GameScreenModel.CurrentRoom.Boss.IsDead))
+            if (GameScreenModel.CurrentRoom.Enemys.Count == 0)
             {
                 if ((leftTile < 0 && GameScreenModel.CurrentMap.WhatKindOfNeighbors(GameScreenModel.CurrentRoomX, GameScreenModel.CurrentRoomY)[0] != 0
                     || rightTile >= map.GetLength(1) && GameScreenModel.CurrentMap.WhatKindOfNeighbors(GameScreenModel.CurrentRoomX, GameScreenModel.CurrentRoomY)[1] != 0) && topTile == 3 && bottomTile == 3)

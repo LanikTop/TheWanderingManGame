@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using The_wandering_man.sourse.Enemy;
+using TheWanderingMan.sourse.Bullet;
 using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
 
@@ -15,8 +17,12 @@ namespace TheWanderingMan.sourse.Enemy
         public static Texture2D Fly { get; set; }
         public static Texture2D Slob { get; set; }
         public static Texture2D Spider { get; set; }
+        public static Texture2D ToxicFly { get; set; }
+        public static Texture2D LitleMole { get; set; }
         public static Texture2D MoleUp { get; set; }
         public static Texture2D MoleDown { get; set; }
+        public static Texture2D Sonic { get; set; }
+        public static Texture2D SonicDach { get; set; }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics, List<EnemyModel> enemys)
         {
@@ -25,24 +31,42 @@ namespace TheWanderingMan.sourse.Enemy
                 switch (enemy.EnemyType)
                 {
                     case EnemyTypes.Fly:
-                        spriteBatch.Draw(Fly, new Rectangle(RoomModel.dx - enemy.SizeX / 2 + (int)enemy.Position.X,
-                                    RoomModel.dy - enemy.SizeY / 2 + (int)enemy.Position.Y, enemy.SizeX, enemy.SizeY),Color.White);
+                        DrawEnemy(spriteBatch, graphics, enemy, Fly);
                         break;
                     case EnemyTypes.Slob:
-                        spriteBatch.Draw(Slob, new Rectangle(RoomModel.dx - enemy.SizeX / 2 + (int)enemy.Position.X,
-                                    RoomModel.dy - enemy.SizeY / 2 + (int)enemy.Position.Y, enemy.SizeX, enemy.SizeY), Color.White);
+                        DrawEnemy(spriteBatch, graphics, enemy, Slob);
                         break;
                     case EnemyTypes.Spider:
-                        spriteBatch.Draw(Spider, new Rectangle(RoomModel.dx - enemy.SizeX / 2 + (int)enemy.Position.X,
-                                    RoomModel.dy - enemy.SizeY / 2 + (int)enemy.Position.Y, enemy.SizeX, enemy.SizeY), Color.White);
+                        DrawEnemy(spriteBatch, graphics, enemy, Spider);
+                        break;
+                    case EnemyTypes.ToxicFly:
+                        DrawEnemy(spriteBatch, graphics, enemy, ToxicFly);
+                        break;
+                    case EnemyTypes.LitleMole:
+                        LittleMole littleMole = (LittleMole)enemy;
+                        if (littleMole.IsStand)
+                            DrawEnemy(spriteBatch, graphics, enemy, LitleMole);
+                        BulletView.DrawMoleBullets(spriteBatch, graphics, littleMole.Bullets);
+                        break;
+                    case EnemyTypes.Mole:
+                        Mole mole = (Mole)enemy;
+                        DrawEnemy(spriteBatch, graphics, enemy, mole.MoleIsDown ? MoleDown : MoleUp);
+                        BulletView.DrawMoleBullets(spriteBatch, graphics, mole.Bullets);
+                        mole.healthBar.Draw(spriteBatch);
+                        break;
+                    case EnemyTypes.Sonic:
+                        Sonic sonic = (Sonic)enemy;
+                        DrawEnemy(spriteBatch, graphics, enemy, sonic.SonicInDash ? MoleDown : MoleUp);
+                        sonic.healthBar.Draw(spriteBatch);
                         break;
                 }
             }
         }
-        public static void DrawMole(SpriteBatch spriteBatch, GraphicsDeviceManager graphics, EnemyModel mole)
+
+        private static void DrawEnemy(SpriteBatch spriteBatch, GraphicsDeviceManager graphics, EnemyModel enemy, Texture2D texture)
         {
-            spriteBatch.Draw(mole.MoleIsDown ? MoleDown : MoleUp, new Rectangle(RoomModel.dx - mole.SizeX / 2 + (int)mole.Position.X,
-                                    RoomModel.dy - mole.SizeY / 2 + (int)mole.Position.Y, mole.SizeX, mole.SizeY), Color.White);
+            spriteBatch.Draw(texture, new Rectangle(RoomModel.dx - enemy.SizeX / 2 + (int)enemy.Position.X,
+                                    RoomModel.dy - enemy.SizeY / 2 + (int)enemy.Position.Y, enemy.SizeX, enemy.SizeY), Color.White);
         }
     }
 }

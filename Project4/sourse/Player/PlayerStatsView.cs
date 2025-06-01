@@ -14,9 +14,10 @@ namespace The_wandering_man.sourse.Player
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
-            spriteBatch.DrawString(Font, $"Монеты: {GameScreenModel.MoneyCount}", new Vector2(10, RoomModel.dy), Color.White);
+            spriteBatch.DrawString(Font, $"Монеты: {PlayerModel.MoneyCount}", new Vector2(10, RoomModel.dy), Color.White);
             spriteBatch.DrawString(Font, $"Скорость: {Math.Round(PlayerModel.Speed / 8f, 1)}", new Vector2(10, RoomModel.dy + 40), Color.White);
-            spriteBatch.DrawString(Font, $"Скорострельность: {Math.Round(2 - BulletModel.PlayerFireCooldown / 40f, 1)}", new Vector2(10, RoomModel.dy + 80), Color.White);
+            spriteBatch.DrawString(Font, $"Скорострельность: {Math.Round(3 - BulletModel.PlayerFireCooldown / 0.2f, 1)}",
+                new Vector2(10, RoomModel.dy + 80), Color.White);
         }
     }
 }

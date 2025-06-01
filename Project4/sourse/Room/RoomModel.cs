@@ -7,6 +7,7 @@ using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Player;
 using The_wandering_man.sourse.TreasureItems;
 using The_wandering_man.sourse;
+using The_wandering_man.sourse.Enemy;
 
 namespace TheWanderingMan.sourse.Room
 {
@@ -27,7 +28,6 @@ namespace TheWanderingMan.sourse.Room
         public bool IsTreasureRoom { get; private set; } = false;
 
         public List<EnemyModel> Enemys { get; private set; } = new List<EnemyModel>();
-        public EnemyModel Boss { get; private set; } = null;
         public bool IsClear { get; private set; } = false;
 
         public RoomModel(int x, int y, Map.Map map)
@@ -58,7 +58,17 @@ namespace TheWanderingMan.sourse.Room
                         IsEndRoom = true;
                         randomInt = new Random().Next(0, RoomVariants.EndRooms.Count);
                         room = (int[,])RoomVariants.EndRooms[randomInt].Clone();
-                        Boss = EnemyModel.CreateMole(new Vector2(tileSizeX * 6.5f, tileSizeY * 3.5f));
+                        EnemyTypes randomEnemy = (EnemyTypes)Enum.GetValues(typeof(EnemyTypes))
+                            .GetValue(new Random().Next(5, 7));
+                        switch (randomEnemy)
+                        {
+                            case EnemyTypes.Mole:
+                                Enemys.Add(new Mole(new Vector2(tileSizeX * 6.5f, tileSizeY * 3.5f)));
+                                break;
+                            case EnemyTypes.Sonic:
+                                Enemys.Add(new Sonic(new Vector2(tileSizeX * 6.5f, tileSizeY * 3.5f)));
+                                break;
+                        }
                     }
                     else if (map.floorPlan[y, x] == 4) // Shop Room
                     {
@@ -90,17 +100,24 @@ namespace TheWanderingMan.sourse.Room
                                 {
                                     if (new Random().Next(1, 10) < 8)
                                     {
-                                        EnemyTypes randomEnemy = (EnemyTypes)Enum.GetValues(typeof(EnemyTypes)).GetValue(new Random().Next(3));
+                                        EnemyTypes randomEnemy = (EnemyTypes)Enum.GetValues(typeof(EnemyTypes))
+                                            .GetValue(new Random().Next(5));
                                         switch (randomEnemy)
                                         {
                                             case EnemyTypes.Fly:
-                                                Enemys.Add(EnemyModel.CreateFly(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
+                                                Enemys.Add(new Fly(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
                                                 break;
                                             case EnemyTypes.Slob:
-                                                Enemys.Add(EnemyModel.CreateSlob(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5))), clearRoom));
+                                                Enemys.Add(new Slob(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5))), clearRoom));
                                                 break;
                                             case EnemyTypes.Spider:
-                                                Enemys.Add(EnemyModel.CreateSpider(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
+                                                Enemys.Add(new Spider(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
+                                                break;
+                                            case EnemyTypes.ToxicFly:
+                                                Enemys.Add(new ToxicFly(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
+                                                break;
+                                            case EnemyTypes.LitleMole:
+                                                Enemys.Add(new LittleMole(new Vector2(tileSizeX * ((float)(roomX + 0.5)), tileSizeY * ((float)(roomY + 0.5)))));
                                                 break;
                                         }
                                     }
@@ -134,7 +151,7 @@ namespace TheWanderingMan.sourse.Room
 
         public void CheckSwipe(int i, Map.Map map, int x, int y)
         {
-            if (Enemys.Count > 0 || (Boss != null && Boss.IsDead)) return;
+            if (Enemys.Count > 0) return;
             if (i == 1)
             {
                 if (map.floorPlan[y, x - 1] != 0)
@@ -207,7 +224,7 @@ namespace TheWanderingMan.sourse.Room
 
         public void AddTreasureItem(Point pos)
         {
-            TreasureItems.Add(new TreasureItems(pos, IsShopRoom));
+            TreasureItems.Add(new TreasureItems(pos, IsShopRoom, IsTreasureRoom, IsEndRoom));
         }
 
         public static void SetIsFirstRoom()

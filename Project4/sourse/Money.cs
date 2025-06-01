@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheWanderingMan.Code.Game;
+using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
 
 namespace The_wandering_man.sourse
@@ -24,7 +25,7 @@ namespace The_wandering_man.sourse
         }
         public void GetMoney()
         {
-            GameScreenModel.MoneyCount++;
+            PlayerModel.GetMoney(1);
             GameScreenModel.CurrentRoom.RemoveMoney(Index);
         }
 

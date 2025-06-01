@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using The_wandering_man.sourse.TreasureItems;
 using TheWanderingMan.sourse;
 using TheWanderingMan.sourse.Bullet;
 using TheWanderingMan.sourse.Enemy;
@@ -29,7 +30,6 @@ namespace TheWanderingMan.Code.Game
             };
 
         public static List<BulletModel> Bullets = new List<BulletModel>();
-        public static int MoneyCount = 0;
 
         private static float timer = 0f;
         private static float fadeDuration = 1.0f;
@@ -68,9 +68,10 @@ namespace TheWanderingMan.Code.Game
             if (PlayerModel.CheckMovingRoom() != 0)
                 CurrentRoom.CheckSwipe(PlayerModel.CheckMovingRoom(), CurrentMap, CurrentRoomX, CurrentRoomY);
             EnemyModel.Update(gameTime);
+
             if (!CurrentRoom.IsClear && CurrentRoom.Enemys.Count == 0)
             {
-                if (CurrentRoom.IsEndRoom && CurrentRoom.Boss.IsDead)
+                if (CurrentRoom.IsEndRoom && CurrentRoom.Enemys.Count == 0)
                 {
                     CurrentRoom.AddExit();
                     CurrentRoom.AddTreasureItem(new Point(6, 5));
@@ -92,6 +93,7 @@ namespace TheWanderingMan.Code.Game
             CurrentRoomX = 4;
             CurrentRoomY = 4;
             RoomModel.SetIsFirstRoom();
+            TreasureItems.RestartTreasure();
             CurrentRoom = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
             floorPlanRooms = new RoomModel[9, 9]
             {
