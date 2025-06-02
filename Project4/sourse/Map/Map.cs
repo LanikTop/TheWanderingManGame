@@ -95,5 +95,10 @@ namespace TheWanderingMan.sourse.Map
         {
             ShowBossRoomAlways = true;
         }
+
+        public static void Reset()
+        {
+            ShowBossRoomAlways = false;
+        }
     }
 }

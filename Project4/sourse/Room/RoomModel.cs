@@ -300,5 +300,10 @@ namespace TheWanderingMan.sourse.Room
             }
             return room;
         }
+
+        public static void Reset()
+        {
+            IsFirstRoom = true;
+        }
     }
 }

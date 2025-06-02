@@ -14,7 +14,7 @@ namespace TheWanderingMan.sourse.Bullet
         public static float Speed = 7f;
         public bool IsActive;
         public static float PlayerFireCooldown = 0.4f;
-        public static float timeSinceLastShot = 0f;
+        private static float timeSinceLastShot = 0f;
         public static bool SpectralTears { get; private set; } = false;
 
         public static void Update(GameTime gameTime)
@@ -129,6 +129,13 @@ namespace TheWanderingMan.sourse.Bullet
         {
             if (PlayerFireCooldown > 0.2f)
                 PlayerFireCooldown -= dt;
+        }
+
+        public static void Reset()
+        {
+            PlayerFireCooldown = 0.4f;
+            timeSinceLastShot = 0f;
+            SpectralTears = false;
         }
     }
 }

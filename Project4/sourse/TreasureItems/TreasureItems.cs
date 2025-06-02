@@ -23,7 +23,7 @@ namespace The_wandering_man.sourse.TreasureItems
         public static bool SpectralTearsAlready { get; private set; } = false;
         public static bool HollyMentalTearsAlready { get; private set; } = false;
         public static bool KnockbackAmuletAlready { get; private set; } = false;
-        public static bool BosRingAlready { get; private set; } = false;
+        public static bool BossRingAlready { get; private set; } = false;
 
         private static string[] ItemsVariants = new string[] { "speed_boots", "tears_eat", "health_eat",
             "damage_axe", "fly_boots", "spectral-tears", "random_money", "holly_mental", "knockback_amulet", "boss_ring" };
@@ -94,9 +94,9 @@ namespace The_wandering_man.sourse.TreasureItems
                 }
                 else if (randomItem == "boss_ring")
                 {
-                    if (BosRingAlready || Map.ShowBossRoomAlways)
+                    if (BossRingAlready || Map.ShowBossRoomAlways)
                         continue;
-                    BosRingAlready = true;
+                    BossRingAlready = true;
                     Texture = ItemsTextures.BossRing;
                     Action = SetShowBossRoomAlways;
                     Cost = 0;
@@ -200,6 +200,8 @@ namespace The_wandering_man.sourse.TreasureItems
             FlyBootsAlready = false;
             SpectralTearsAlready = false;
             KnockbackAmuletAlready = false;
+            HollyMentalTearsAlready = false;
+            BossRingAlready = false;
         }
     }
 }

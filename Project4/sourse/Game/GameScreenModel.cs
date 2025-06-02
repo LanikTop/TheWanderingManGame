@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using The_wandering_man.sourse;
 using The_wandering_man.sourse.TreasureItems;
 using TheWanderingMan.sourse;
 using TheWanderingMan.sourse.Bullet;
@@ -110,5 +111,34 @@ namespace TheWanderingMan.Code.Game
             timer = 0f;
             Bullets = new List<BulletModel>();
         }
+
+        public static void Reset()
+        {
+            CurrentMap = new Map();
+            CurrentRoomX = 4;
+            CurrentRoomY = 4;
+            RoomModel.SetIsFirstRoom();
+            TreasureItems.RestartTreasure();
+            CurrentRoom = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
+            floorPlanRooms = new RoomModel[9, 9]
+            {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, CurrentRoom, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            };
+            timer = 0f;
+            Bullets = new List<BulletModel>();
+            timer = 0f;
+            fadeDuration = 1.0f;
+            IsFade = false;
+            IsLight = false;
+            alpha = 1.0f;
+    }
     }
 }

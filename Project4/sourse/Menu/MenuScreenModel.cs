@@ -8,16 +8,20 @@ namespace TheWanderingMan.Code.Menu
     public static class MenuScreenModel
     {
         public static int activeButton { get; private set; }
-        private static int buttonTimerCount = 0;
+        private static float buttonSwipeTimer = 0f;
+        private static float buttonClickTimer = 0f;
         private static Color baseColor = Color.White;
 
-        public static void Update()
+        public static void Update(GameTime gameTime)
         {
-            buttonTimerCount++;
+            buttonSwipeTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            buttonClickTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public static void ButtonClick()
         {
+            if (buttonClickTimer < 0.5f)
+                return;
             if (activeButton == 0)
                 Game1.SetNewGameMode(GameMode.Game);
             else if (activeButton == 1)
@@ -28,21 +32,26 @@ namespace TheWanderingMan.Code.Menu
 
         public static void ScrollDown()
         {
-            if (buttonTimerCount > 10)
+            if (buttonSwipeTimer > 0.2f)
             {
                 activeButton++;
-                buttonTimerCount = 0;
+                buttonSwipeTimer = 0f;
                 if (activeButton == 3) activeButton = 0;
             }
         }
         public static void ScrollUp()
         {
-            if (buttonTimerCount > 10)
+            if (buttonSwipeTimer > 0.2f)
             {
                 activeButton--;
-                buttonTimerCount = 0;
+                buttonSwipeTimer = 0f;
                 if (activeButton == -1) activeButton = 2;
             }
+        }
+
+        public static void ResetButtonClickTimer()
+        {
+            buttonClickTimer = 0f;
         }
     }
 }

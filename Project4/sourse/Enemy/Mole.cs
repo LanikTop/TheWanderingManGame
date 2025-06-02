@@ -93,7 +93,7 @@ namespace The_wandering_man.sourse.Enemy
                 (int)moleBullet.Position.Y - BulletModel.BulletSizeY / 2, BulletModel.BulletSizeX, BulletModel.BulletSizeY);
                 if (CheckCollisions.CheckCollisionWithMap(bound))
                     Bullets.RemoveAt(i);
-                if (CheckCollisions.CheckCollisionWithBounds(PlayerModel.GetPlayerHitBox(), moleBullet.GetBulletHitBox())
+                else if (CheckCollisions.CheckCollisionWithBounds(PlayerModel.GetPlayerHitBox(), moleBullet.GetBulletHitBox())
                     || CheckCollisions.CheckCollisionWithBounds(moleBullet.GetBulletHitBox(), PlayerModel.GetPlayerHitBox()))
                 {
                     PlayerModel.GetDamaged(moleBullet.GetBulletPosition());

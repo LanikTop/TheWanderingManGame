@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace TheWanderingMan.Code.Menu
 {
     public static class MenuScreenController
     {
-        public static void Update(KeyboardState keyboardState)
+        public static void Update(KeyboardState keyboardState, GameTime gameTime)
         {
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
@@ -18,7 +19,7 @@ namespace TheWanderingMan.Code.Menu
             {
                 MenuScreenModel.ScrollUp();
             }
-            MenuScreenModel.Update();
+            MenuScreenModel.Update(gameTime);
         }
     }
 }

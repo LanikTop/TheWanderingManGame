@@ -301,5 +301,18 @@ namespace TheWanderingMan.sourse.Player
             var tileY = (int)Math.Floor(Position.Y / RoomModel.tileSizeY);
             return new Point(tileX, tileY);
         }
+
+        public static void Reset()
+        {
+            Position = new Vector2(RoomModel.tileSizeX * 6.5f, RoomModel.tileSizeY * 3.5f);
+            Direction = new Vector2(0, 0);
+            Speed = 8f;
+            Damage = 1f;
+            MoneyCount = 0;
+            IsFly = false;
+            IsKnockbackAmulet = false;
+            IsInvulnerable = false;
+            isVisible = true;
+        }
     }
 }

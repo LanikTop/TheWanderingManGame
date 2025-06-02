@@ -21,6 +21,10 @@ namespace TheWanderingMan.sourse.Player
                 IsHollyMentalActive = false;
             else
                 Count--;
+            if (Count <= 0)
+            {
+                Game1.SetEndGame();
+            }
         }
 
         public static void Regerenate()
@@ -55,6 +59,13 @@ namespace TheWanderingMan.sourse.Player
                 spriteBatch.Draw(ItemsTextures.HollyMental,
                     new Rectangle(startDrawPosX + Count * HeartTileSize, startWrawPosY, HeartTileSize, HeartTileSize), Color.White);
             }
+        }
+
+        public static void Reset()
+        {
+            Count = 5;
+            IsHollyMental = false;
+            IsHollyMentalActive = true;
         }
     }
 }

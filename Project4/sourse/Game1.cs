@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_wandering_man.sourse.EndScreen;
 using The_wandering_man.sourse.Enemy;
 using The_wandering_man.sourse.Player;
 using The_wandering_man.sourse.TreasureItems;
@@ -24,6 +25,7 @@ namespace TheWanderingMan.sourse
         public static int ScreenHeight { get; private set; }
 
         public static bool IsPause { get; private set; }
+        public static bool IsEnd { get; private set; }
 
         public Game1()
         {
@@ -116,6 +118,9 @@ namespace TheWanderingMan.sourse
             MiniMapView.NotVisitedTreasure = Content.Load<Texture2D>("not_visited_treasure");
             MiniMapView.VisitedEnd = Content.Load<Texture2D>("visited_end");
             MiniMapView.NotVisitedEnd = Content.Load<Texture2D>("not_visited_end");
+
+            EndScreenView.Background = Content.Load<Texture2D>("end_screen");
+            EndScreenView.EndSwitcher = Content.Load<Texture2D>("end_switcher");
         }
 
         protected override void Update(GameTime gameTime)
@@ -124,10 +129,13 @@ namespace TheWanderingMan.sourse
             switch (Mode)
             {
                 case GameMode.Menu:
-                    MenuScreenController.Update(keyboardState);
+                    MenuScreenController.Update(keyboardState, gameTime);
                     break;
                 case GameMode.Game:
                     GameScreenController.Update(keyboardState, gameTime);
+                    break;
+                case GameMode.EndScreen:
+                    EndScreenController.Update(keyboardState, gameTime);
                     break;
             }
             base.Update(gameTime);
@@ -135,7 +143,8 @@ namespace TheWanderingMan.sourse
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            if (!IsEnd)
+                GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             switch (Mode)
             {
@@ -144,6 +153,10 @@ namespace TheWanderingMan.sourse
                     break;
                 case GameMode.Game:
                     GameScreenView.Draw(_spriteBatch, _graphics);
+                    break;
+                case GameMode.EndScreen:
+                    DrawLastFrame();
+                    EndScreenView.Draw(_spriteBatch, _graphics);
                     break;
             }
             _spriteBatch.End();
@@ -168,6 +181,30 @@ namespace TheWanderingMan.sourse
         public static void EndPause()
         {
             IsPause = false;
+        }
+
+        public static void SetEndGame()
+        {
+            Mode = GameMode.EndScreen;
+        }
+
+        private static void DrawLastFrame()
+        {
+            if (!IsEnd)
+                GameScreenView.Draw(_spriteBatch, _graphics);
+            IsEnd = true;
+        }
+
+        public static void ResetGame()
+        {
+            IsEnd = false;
+            GameScreenModel.Reset();
+            Health.Reset();
+            PlayerModel.Reset();
+            Map.Map.Reset();
+            RoomModel.Reset();
+            TreasureItems.RestartTreasure();
+            BulletModel.Reset();
         }
     }
 }
