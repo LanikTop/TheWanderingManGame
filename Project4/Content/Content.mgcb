@@ -25,30 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../Downloads/Beer.png;spectral-tears
 
-#begin ../../../../../Downloads/mole_down.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../Downloads/mole_down.png;mole_down
-
-#begin 0bccbf89cbaefd4d8f50b92507718eec.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:0bccbf89cbaefd4d8f50b92507718eec.png;enemy_slob
-
 #begin Apple.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -97,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:axe3.png;axe3
 
-#begin background.jpg
+#begin bat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,7 +83,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:background.jpg;background
+/build:bat.png;bat
 
 #begin blue_potion.png
 /importer:TextureImporter
@@ -265,7 +241,7 @@
 /processorParam:TextureFormat=Color
 /build:dark_exit.png;dark_exit
 
-#begin dark_setings.png
+#begin dark_settings.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -275,7 +251,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:dark_setings.png;dark_setings
+/build:dark_settings.png;dark_setings
 
 #begin dark_start.png
 /importer:TextureImporter
@@ -404,7 +380,7 @@
 /processorParam:TextureFormat=Color
 /build:heart.png;heart
 
-#begin HolyMantle.png
+#begin holly_mental.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -414,7 +390,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:HolyMantle.png;holly_mental
+/build:holly_mental.png;holly_mental
+
+#begin how_to_play.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:how_to_play.png;how_to_play
 
 #begin KnockbackAmulet.png
 /importer:TextureImporter
@@ -440,7 +428,7 @@
 /processorParam:TextureFormat=Color
 /build:light_exit.png;light_exit
 
-#begin light_setings.png
+#begin light_settings.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -450,7 +438,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:light_setings.png;light_setings
+/build:light_settings.png;light_setings
 
 #begin light_start.png
 /importer:TextureImporter
@@ -487,6 +475,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mainlevbuild.png;basement
+
+#begin mole_down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mole_down.png;mole_down
 
 #begin mole.png
 /importer:TextureImporter
@@ -608,6 +608,42 @@
 /processorParam:TextureFormat=Color
 /build:red_potion.png;red_potion
 
+#begin slob.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:slob.png;slob
+
+#begin sonic_dash.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sonic_dash.png;sonic_dash
+
+#begin sonic.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sonic.png;sonic
+
 #begin spider.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -619,6 +655,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spider.png;spider
+
+#begin statictics_background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:statictics_background.png;statictics_background
 
 #begin toxic_fly.png
 /importer:TextureImporter
@@ -691,4 +739,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:wall.jpg;wall
+
+#begin Wiki-background.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Wiki-background.jpg;background
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Bullet;
 using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
@@ -18,6 +17,7 @@ namespace The_wandering_man.sourse.Player
             spriteBatch.DrawString(Font, $"Скорость: {Math.Round(PlayerModel.Speed / 8f, 1)}", new Vector2(10, RoomModel.dy + 40), Color.White);
             spriteBatch.DrawString(Font, $"Скорострельность: {Math.Round(3 - BulletModel.PlayerFireCooldown / 0.2f, 1)}",
                 new Vector2(10, RoomModel.dy + 80), Color.White);
+            spriteBatch.DrawString(Font, $"Урон: {PlayerModel.Damage}", new Vector2(10, RoomModel.dy + 120), Color.White);
         }
     }
 }

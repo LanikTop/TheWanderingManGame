@@ -15,7 +15,7 @@ namespace The_wandering_man.sourse.Enemy
         private float currentTimer = 0f;
         public bool IsStand { get; private set; } = true;
         private bool AlreadyShot = false;
-        public List<BulletModel> Bullets = new List<BulletModel>();
+        public List<BulletModel> Bullets { get; private set; } = new List<BulletModel>();
 
         public LittleMole(Vector2 position)
         {

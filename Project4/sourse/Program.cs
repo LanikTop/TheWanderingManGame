@@ -1,3 +1,2 @@
-﻿
-using var game = new TheWanderingMan.sourse.Game1();
+﻿using var game = new TheWanderingMan.sourse.Game1();
 game.Run();

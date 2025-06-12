@@ -11,11 +11,9 @@ namespace TheWanderingMan.sourse.Bullet
         public Vector2 Direction { get; private set; }
         public readonly static int BulletSizeX = (int)(RoomModel.tileSizeX * 0.45);
         public readonly static int BulletSizeY = (int)(RoomModel.tileSizeY * 0.45);
-        public static float Speed = 7f;
-        public bool IsActive;
-        public static float PlayerFireCooldown = 0.4f;
+        private static float Speed = 7f;
+        public static float PlayerFireCooldown { get; private set; } = 0.4f;
         private static float timeSinceLastShot = 0f;
-        public static bool SpectralTears { get; private set; } = false;
 
         public static void Update(GameTime gameTime)
         {
@@ -26,7 +24,7 @@ namespace TheWanderingMan.sourse.Bullet
                 bullet.Position += bullet.Direction * Speed;
                 Rectangle bound = new Rectangle((int)bullet.Position.X - BulletSizeX / 2,
                     (int)bullet.Position.Y - BulletSizeY / 2, BulletSizeX, BulletSizeY);
-                if ((CheckCollisions.CheckCollisionWithMap(bound) && !SpectralTears)
+                if ((CheckCollisions.CheckCollisionWithMap(bound) && !GameScreenModel.SpectralTears)
                     || (bullet.Position.X + (int)(RoomModel.tileSizeX * 0.225f)) / RoomModel.tileSizeX > GameScreenModel.CurrentRoom.TileRoom.GetLength(1)
                     || (bullet.Position.X - (int)(RoomModel.tileSizeX * 0.225f)) / RoomModel.tileSizeX < 0
                     || (bullet.Position.Y + (int)(RoomModel.tileSizeY * 0.225f)) / RoomModel.tileSizeY > GameScreenModel.CurrentRoom.TileRoom.GetLength(0)
@@ -52,7 +50,6 @@ namespace TheWanderingMan.sourse.Bullet
             {
                 Position = PlayerModel.Position,
                 Direction = direction,
-                IsActive = true,
             };
             timeSinceLastShot = 0f;
             return bullet;
@@ -64,7 +61,6 @@ namespace TheWanderingMan.sourse.Bullet
             {
                 Position = molePos,
                 Direction = direction,
-                IsActive = true,
             };
             return bullet;
         }
@@ -115,11 +111,6 @@ namespace TheWanderingMan.sourse.Bullet
             GameScreenModel.Bullets.RemoveAt(index);
         }
 
-        public static void Spectral()
-        {
-            SpectralTears = true;
-        }
-
         public static void UpdateBulletSeparately(BulletModel bullet)
         {
             bullet.Position += bullet.Direction * Speed;
@@ -135,7 +126,6 @@ namespace TheWanderingMan.sourse.Bullet
         {
             PlayerFireCooldown = 0.4f;
             timeSinceLastShot = 0f;
-            SpectralTears = false;
         }
     }
 }

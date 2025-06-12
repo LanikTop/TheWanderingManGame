@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Enemy;
-using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
 
 namespace The_wandering_man.sourse.Enemy
@@ -18,7 +12,8 @@ namespace The_wandering_man.sourse.Enemy
         public bool SonicSpawnEnemy { get; private set; } = false;
         private float currentSonicDachTimer = 0f;
         private float currentSonicStayTimer = 0f;
-        public BossHealthBar healthBar = new BossHealthBar(20);
+        public BossHealthBar healthBar { get; private set; } = new BossHealthBar(20);
+
         public Sonic(Vector2 position)
         {
             Position = position;

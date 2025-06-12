@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Room;
@@ -11,7 +7,7 @@ namespace The_wandering_man.sourse.Enemy
 {
     public class ToxicFly : EnemyModel
     {
-        public static float speedRandom = 3f;
+        private static float speedRandom = 3f;
         private float currentMoveTimer = 0f;
 
         public ToxicFly(Vector2 position)

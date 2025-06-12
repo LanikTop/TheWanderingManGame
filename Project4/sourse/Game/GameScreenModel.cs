@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using The_wandering_man.sourse;
 using The_wandering_man.sourse.TreasureItems;
 using TheWanderingMan.sourse;
 using TheWanderingMan.sourse.Bullet;
@@ -13,11 +12,14 @@ namespace TheWanderingMan.Code.Game
 {
     public static class GameScreenModel
     {
+        public static int CountFloarsComplete { get; private set; } = 0;
+        public static int CountEnemysKilled { get; private set; } = 0;
+
         public static Map CurrentMap { get; private set; } = new Map();
-        public static int CurrentRoomX = 4;
-        public static int CurrentRoomY = 4;
-        public static RoomModel CurrentRoom = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
-        public static RoomModel[,] floorPlanRooms = new RoomModel[9, 9]
+        public static int CurrentRoomX { get; private set; } = 4;
+        public static int CurrentRoomY { get; private set; } = 4;
+        public static RoomModel CurrentRoom { get; private set; } = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
+        public static RoomModel[,] floorPlanRooms { get; private set; } = new RoomModel[9, 9]
             {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -30,13 +32,20 @@ namespace TheWanderingMan.Code.Game
                 {null, null, null, null, null, null, null, null, null}
             };
 
-        public static List<BulletModel> Bullets = new List<BulletModel>();
+        public static List<BulletModel> Bullets { get; private set; } = new List<BulletModel>();
 
         private static float timer = 0f;
         private static float fadeDuration = 1.0f;
-        public static bool IsFade = false;
-        public static bool IsLight = false;
-        public static float alpha = 1.0f;
+        public static bool IsFade { get; private set; } = false;
+        public static bool IsLight { get; private set; } = false;
+        public static float alpha { get; private set; } = 1.0f;
+
+        //Items flags
+        public static bool ShowBossRoomAlways { get; private set; } = false;
+        public static bool IsPlayerFly { get; private set; } = false;
+        public static bool IsHollyMental { get; private set; } = false;
+        public static bool IsKnockbackAmulet { get; private set; } = false;
+        public static bool SpectralTears { get; private set; } = false;
 
         public static void Update(GameTime gameTime)
         {
@@ -93,7 +102,7 @@ namespace TheWanderingMan.Code.Game
             CurrentMap = new Map();
             CurrentRoomX = 4;
             CurrentRoomY = 4;
-            RoomModel.SetIsFirstRoom();
+            RoomModel.Reset();
             TreasureItems.RestartTreasure();
             CurrentRoom = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
             floorPlanRooms = new RoomModel[9, 9]
@@ -110,6 +119,7 @@ namespace TheWanderingMan.Code.Game
             };
             timer = 0f;
             Bullets = new List<BulletModel>();
+            CountFloarsComplete++;
         }
 
         public static void Reset()
@@ -117,7 +127,6 @@ namespace TheWanderingMan.Code.Game
             CurrentMap = new Map();
             CurrentRoomX = 4;
             CurrentRoomY = 4;
-            RoomModel.SetIsFirstRoom();
             TreasureItems.RestartTreasure();
             CurrentRoom = new RoomModel(CurrentRoomX, CurrentRoomY, CurrentMap);
             floorPlanRooms = new RoomModel[9, 9]
@@ -139,6 +148,59 @@ namespace TheWanderingMan.Code.Game
             IsFade = false;
             IsLight = false;
             alpha = 1.0f;
-    }
+            CountFloarsComplete = 0;
+            CountEnemysKilled = 0;
+
+            ShowBossRoomAlways = false;
+            IsPlayerFly = false;
+            IsHollyMental = false;
+            IsKnockbackAmulet = false;
+            SpectralTears = false;
+        }
+
+        public static void KilledEnemysAdd()
+        {
+            CountEnemysKilled++;
+        }
+
+        public static void ChangeCurrentRoom(int newX, int newY, RoomModel newRoom = null)
+        {
+            CurrentRoomX = newX;
+            CurrentRoomY = newY;
+            Bullets = new List<BulletModel>();
+            if (newRoom != null )
+                floorPlanRooms[newY, newX] = newRoom;
+            CurrentRoom = floorPlanRooms[newY, newX];
+        }
+
+        public static void InstallFade()
+        {
+            IsFade = true;
+        }
+
+        public static void SetShowBossRoomAlways()
+        {
+            ShowBossRoomAlways = true;
+        }
+
+        public static void GetPlayerFly()
+        {
+            IsPlayerFly = true;
+        }
+
+        public static void GetHollyMental()
+        {
+            IsHollyMental = true;
+        }
+
+        public static void GetKnockbackAmulet()
+        {
+            IsKnockbackAmulet = true;
+        }
+
+        public static void GetSpectralTears()
+        {
+            SpectralTears = true;
+        }
     }
 }

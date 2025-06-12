@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using TheWanderingMan.Code.Game;
-using TheWanderingMan.sourse.Bullet;
 using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Player;
 using The_wandering_man.sourse.TreasureItems;
@@ -157,10 +156,9 @@ namespace TheWanderingMan.sourse.Room
                 if (map.floorPlan[y, x - 1] != 0)
                 {
                     if (!ContainsRoom(x - 1, y))
-                        GameScreenModel.floorPlanRooms[y, x - 1] = new RoomModel(x - 1, y, map);
-                    GameScreenModel.CurrentRoom = GameScreenModel.floorPlanRooms[y, x - 1];
-                    GameScreenModel.CurrentRoomX = x - 1;
-                    GameScreenModel.Bullets = new List<BulletModel>();
+                        GameScreenModel.ChangeCurrentRoom(x - 1, y, new RoomModel(x - 1, y, map));
+                    else
+                        GameScreenModel.ChangeCurrentRoom(x - 1, y);
                     PlayerModel.MoveTo("right");
                 }
             }
@@ -169,10 +167,9 @@ namespace TheWanderingMan.sourse.Room
                 if (map.floorPlan[y, x + 1] != 0)
                 {
                     if (!ContainsRoom(x + 1, y))
-                        GameScreenModel.floorPlanRooms[y, x + 1] = new RoomModel(x + 1, y, map);
-                    GameScreenModel.CurrentRoom = GameScreenModel.floorPlanRooms[y, x + 1];
-                    GameScreenModel.CurrentRoomX = x + 1;
-                    GameScreenModel.Bullets = new List<BulletModel>();
+                        GameScreenModel.ChangeCurrentRoom(x + 1, y, new RoomModel(x + 1, y, map));
+                    else
+                        GameScreenModel.ChangeCurrentRoom(x + 1, y);
                     PlayerModel.MoveTo("left");
                 }
             }
@@ -181,10 +178,9 @@ namespace TheWanderingMan.sourse.Room
                 if (map.floorPlan[y - 1, x] != 0)
                 {
                     if (!ContainsRoom(x, y - 1))
-                        GameScreenModel.floorPlanRooms[y - 1, x] = new RoomModel(x, y - 1, map);
-                    GameScreenModel.CurrentRoom = GameScreenModel.floorPlanRooms[y - 1, x];
-                    GameScreenModel.CurrentRoomY = y - 1;
-                    GameScreenModel.Bullets = new List<BulletModel>();
+                        GameScreenModel.ChangeCurrentRoom(x, y - 1, new RoomModel(x, y - 1, map));
+                    else
+                        GameScreenModel.ChangeCurrentRoom(x, y - 1);
                     PlayerModel.MoveTo("bottom");
                 }
             }
@@ -193,18 +189,12 @@ namespace TheWanderingMan.sourse.Room
                 if (map.floorPlan[y + 1, x] != 0)
                 {
                     if (!ContainsRoom(x, y + 1))
-                        GameScreenModel.floorPlanRooms[y + 1, x] = new RoomModel(x, y + 1, map);
-                    GameScreenModel.CurrentRoom = GameScreenModel.floorPlanRooms[y + 1, x];
-                    GameScreenModel.CurrentRoomY = y + 1;
-                    GameScreenModel.Bullets = new List<BulletModel>();
+                        GameScreenModel.ChangeCurrentRoom(x, y + 1, new RoomModel(x, y + 1, map));
+                    else
+                        GameScreenModel.ChangeCurrentRoom(x, y + 1);
                     PlayerModel.MoveTo("top");
                 }
             }
-        }
-
-        public bool IsWalkable1(int x, int y)
-        {
-            return x >= 0 && y >= 0 && x < 13 && y < 7 && TileRoom[x, y] == 0;
         }
 
         public void AddExit()
@@ -217,19 +207,9 @@ namespace TheWanderingMan.sourse.Room
             TileRoom[y, x] = i;
         }
 
-        public void RemoveTreasureItem1(int i)
-        {
-            TreasureItems.RemoveAt(i);
-        }
-
         public void AddTreasureItem(Point pos)
         {
             TreasureItems.Add(new TreasureItems(pos, IsShopRoom, IsTreasureRoom, IsEndRoom));
-        }
-
-        public static void SetIsFirstRoom()
-        {
-            IsFirstRoom = true;
         }
 
         public static int[,] GetPeacefullRoom(int[,] room)

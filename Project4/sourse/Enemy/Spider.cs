@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using TheWanderingMan;
 using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Enemy;
-using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
 
 namespace The_wandering_man.sourse.Enemy

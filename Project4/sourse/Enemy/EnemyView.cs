@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using The_wandering_man.sourse.Enemy;
@@ -22,7 +18,7 @@ namespace TheWanderingMan.sourse.Enemy
         public static Texture2D MoleUp { get; set; }
         public static Texture2D MoleDown { get; set; }
         public static Texture2D Sonic { get; set; }
-        public static Texture2D SonicDach { get; set; }
+        public static Texture2D SonicDash { get; set; }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics, List<EnemyModel> enemys)
         {
@@ -56,7 +52,7 @@ namespace TheWanderingMan.sourse.Enemy
                         break;
                     case EnemyTypes.Sonic:
                         Sonic sonic = (Sonic)enemy;
-                        DrawEnemy(spriteBatch, graphics, enemy, sonic.SonicInDash ? MoleDown : MoleUp);
+                        DrawEnemy(spriteBatch, graphics, enemy, sonic.SonicInDash ? SonicDash : Sonic);
                         sonic.healthBar.Draw(spriteBatch);
                         break;
                 }

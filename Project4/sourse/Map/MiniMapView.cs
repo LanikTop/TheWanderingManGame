@@ -23,7 +23,7 @@ namespace TheWanderingMan.sourse.Map
                 for (int j = 1; j < 8; j++)
                 {
                     if (floorPlan[j, i] == 0) continue;
-                    if (!(Map.ShowBossRoomAlways && floorPlan[j, i] == 3) && GameScreenModel.floorPlanRooms[j, i] == null && GameScreenModel.floorPlanRooms[j - 1, i] == null && GameScreenModel.floorPlanRooms[j + 1, i] == null
+                    if (!(GameScreenModel.ShowBossRoomAlways && floorPlan[j, i] == 3) && GameScreenModel.floorPlanRooms[j, i] == null && GameScreenModel.floorPlanRooms[j - 1, i] == null && GameScreenModel.floorPlanRooms[j + 1, i] == null
                         && GameScreenModel.floorPlanRooms[j, i - 1] == null && GameScreenModel.floorPlanRooms[j, i + 1] == null) continue;
                     if (floorPlan[j, i] == 1)
                     {

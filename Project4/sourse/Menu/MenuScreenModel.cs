@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using TheWanderingMan.sourse;
 
 namespace TheWanderingMan.Code.Menu
@@ -10,7 +8,6 @@ namespace TheWanderingMan.Code.Menu
         public static int activeButton { get; private set; }
         private static float buttonSwipeTimer = 0f;
         private static float buttonClickTimer = 0f;
-        private static Color baseColor = Color.White;
 
         public static void Update(GameTime gameTime)
         {
@@ -20,12 +17,12 @@ namespace TheWanderingMan.Code.Menu
 
         public static void ButtonClick()
         {
-            if (buttonClickTimer < 0.5f)
+            if (buttonClickTimer < 0.3f)
                 return;
             if (activeButton == 0)
                 Game1.SetNewGameMode(GameMode.Game);
             else if (activeButton == 1)
-            { }
+                Game1.ResetSaveData();
             else if (activeButton == 2)
                 Game1.ExitGame();
         }

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
@@ -13,10 +9,10 @@ namespace The_wandering_man.sourse.Enemy
 {
     public class Slob : EnemyModel
     {
-        public int[,] Room;
+        private int[,] Room;
         private List<Vector2> CurrentPath;
-        Vector2 PlayerLastPos;
-        public static float speedRandom = 0.3f;
+        private Vector2 PlayerLastPos;
+        private static float speedRandom = 0.3f;
 
         public Slob(Vector2 position, int[,] room)
         {

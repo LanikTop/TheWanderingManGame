@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using TheWanderingMan;
 using TheWanderingMan.Code.Game;
@@ -15,12 +11,12 @@ namespace The_wandering_man.sourse.Enemy
 {
     public class Mole : EnemyModel
     {
-        public bool MoleIsDead = false;
-        public bool MoleIsDown = false;
+        public bool MoleIsDead { get; private set; } = false;
+        public bool MoleIsDown { get; private set; } = false;
         private float currentMoveDownTimer = 0f;
         private float currentMoleTimer = 0f;
-        public List<BulletModel> Bullets = new List<BulletModel>();
-        public BossHealthBar healthBar = new BossHealthBar(20);
+        public List<BulletModel> Bullets { get; private set; } = new List<BulletModel>();
+        public BossHealthBar healthBar { get; private set; } = new BossHealthBar(20);
         private bool moleOnPlayer = false;
         private int moleShootCount = 0;
 
@@ -50,6 +46,7 @@ namespace The_wandering_man.sourse.Enemy
                     MoleIsDown = true;
                     SizeX = (int)(RoomModel.tileSizeX * 1.7f);
                     SizeY = RoomModel.tileSizeY;
+                    GameScreenModel.CurrentRoom.Enemys.Add(new LittleMole(Position));
                 }
                 currentMoleTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 CollisionsWithPlayer(PlayerPos);

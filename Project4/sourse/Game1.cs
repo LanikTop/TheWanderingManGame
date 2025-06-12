@@ -12,6 +12,7 @@ using TheWanderingMan.sourse.Enemy;
 using TheWanderingMan.sourse.Map;
 using TheWanderingMan.sourse.Player;
 using TheWanderingMan.sourse.Room;
+using The_wandering_man;
 
 namespace TheWanderingMan.sourse
 {
@@ -25,14 +26,14 @@ namespace TheWanderingMan.sourse
         public static int ScreenHeight { get; private set; }
 
         public static bool IsPause { get; private set; }
-        public static bool IsEnd { get; private set; }
+        private static bool IsEnd = false;
 
         public Game1()
         {
             GameInstance = this;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             IsPause = false;
         }
 
@@ -52,6 +53,8 @@ namespace TheWanderingMan.sourse
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             MenuScreenView.BackgroundImage = Content.Load<Texture2D>("background");
+            MenuScreenView.StaticticsBackground = Content.Load<Texture2D>("statictics_background");
+            MenuScreenView.HowToPlay = Content.Load<Texture2D>("how_to_play");
             MenuScreenView.Font = Content.Load<SpriteFont>("MenuFont");
             MenuScreenView.StartButtons = new[] { Content.Load<Texture2D>("dark_start"), Content.Load<Texture2D>("light_start") };
             MenuScreenView.SettingsButtons = new[] { Content.Load<Texture2D>("dark_setings"), Content.Load<Texture2D>("light_setings") };
@@ -62,6 +65,7 @@ namespace TheWanderingMan.sourse
             Health.Texture = Content.Load<Texture2D>("heart");
             PlayerStatsView.Font = Content.Load<SpriteFont>("MenuFont");
 
+
             RoomView.Floor = Content.Load<Texture2D>("floor");
             RoomView.StoneWall = Content.Load<Texture2D>("wall");
             RoomView.DoorLockTexture = Content.Load<Texture2D>("door_lock");
@@ -71,14 +75,14 @@ namespace TheWanderingMan.sourse
             RoomView.Font = Content.Load<SpriteFont>("MenuFont");
 
             EnemyView.Fly = Content.Load<Texture2D>("enemy_fly");
-            EnemyView.Slob = Content.Load<Texture2D>("enemy_slob");
+            EnemyView.Slob = Content.Load<Texture2D>("slob");
             EnemyView.Spider = Content.Load<Texture2D>("spider");
-            EnemyView.ToxicFly = Content.Load<Texture2D>("toxic_fly");
+            EnemyView.ToxicFly = Content.Load<Texture2D>("bat");
             EnemyView.LitleMole = Content.Load<Texture2D>("mole");
             EnemyView.MoleDown = Content.Load<Texture2D>("mole_down");
             EnemyView.MoleUp = Content.Load<Texture2D>("mole");
-            EnemyView.Sonic = Content.Load<Texture2D>("mole");
-            EnemyView.SonicDach = Content.Load<Texture2D>("mole_down");
+            EnemyView.Sonic = Content.Load<Texture2D>("sonic");
+            EnemyView.SonicDash = Content.Load<Texture2D>("sonic_dash");
 
             BossHealthBar.HealthTexture = Content.Load<Texture2D>("bossbar_health");
             BossHealthBar.BackgroundTexture = Content.Load<Texture2D>("bossbar_background");
@@ -121,6 +125,7 @@ namespace TheWanderingMan.sourse
 
             EndScreenView.Background = Content.Load<Texture2D>("end_screen");
             EndScreenView.EndSwitcher = Content.Load<Texture2D>("end_switcher");
+            EndScreenView.Font = Content.Load<SpriteFont>("MenuFont");
         }
 
         protected override void Update(GameTime gameTime)
@@ -197,14 +202,29 @@ namespace TheWanderingMan.sourse
 
         public static void ResetGame()
         {
+            SaveData();
             IsEnd = false;
             GameScreenModel.Reset();
             Health.Reset();
             PlayerModel.Reset();
-            Map.Map.Reset();
             RoomModel.Reset();
             TreasureItems.RestartTreasure();
             BulletModel.Reset();
+        }
+
+        private static void SaveData()
+        {
+            var data = new GameDataSave.GameData
+            {
+                HighScoreFloors = GameScreenModel.CountFloarsComplete,
+                EnemiesKilled = GameScreenModel.CountEnemysKilled,
+            };
+            GameDataSave.Save(data);
+        }
+
+        public static void ResetSaveData()
+        {
+            GameDataSave.ResetSaveData();
         }
     }
 }

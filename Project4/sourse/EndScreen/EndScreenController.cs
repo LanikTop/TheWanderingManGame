@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using TheWanderingMan.Code.Menu;
-using TheWanderingMan.sourse;
 
 namespace The_wandering_man.sourse.EndScreen
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TheWanderingMan.sourse.Room
 {
@@ -11,7 +7,7 @@ namespace TheWanderingMan.sourse.Room
         public const int Width = 13;
         public const int Height = 7;
 
-        public static List<int[,]> EndRooms = new List<int[,]>()
+        public static List<int[,]> EndRooms { get; private set; } = new List<int[,]>()
         {
             new int[Height, Width]
             {
@@ -25,7 +21,7 @@ namespace TheWanderingMan.sourse.Room
             }
         };
 
-        public static List<int[,]> ShopRooms = new List<int[,]>()
+        public static List<int[,]> ShopRooms { get; private set; } = new List<int[,]>()
         {
             new int[Height, Width]
             {
@@ -39,7 +35,7 @@ namespace TheWanderingMan.sourse.Room
             }
         };
 
-        public static List<int[,]> TreasureRooms = new List<int[,]>()
+        public static List<int[,]> TreasureRooms { get; private set; } = new List<int[,]>()
         {
             new int[Height, Width]
             {
@@ -83,7 +79,7 @@ namespace TheWanderingMan.sourse.Room
             }
         };
 
-        public static List<int[,]> BasicRooms = new List<int[,]>()
+        public static List<int[,]> BasicRooms { get; private set; } = new List<int[,]>()
         {
             new int[Height, Width]
             {

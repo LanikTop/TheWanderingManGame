@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TheWanderingMan.Code.Game;
-using TheWanderingMan.sourse.Player;
 
 namespace TheWanderingMan.sourse.Room
 {

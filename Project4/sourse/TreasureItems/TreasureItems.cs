@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheWanderingMan.Code.Game;
-using TheWanderingMan.sourse;
 using TheWanderingMan.sourse.Bullet;
-using TheWanderingMan.sourse.Map;
 using TheWanderingMan.sourse.Player;
 
 namespace The_wandering_man.sourse.TreasureItems
@@ -85,7 +83,7 @@ namespace The_wandering_man.sourse.TreasureItems
                 }
                 else if (randomItem == "fly_boots")
                 {
-                    if (FlyBootsAlready || PlayerModel.IsFly)
+                    if (FlyBootsAlready || GameScreenModel.IsPlayerFly)
                         continue;
                     FlyBootsAlready = true;
                     Texture = ItemsTextures.FlyBoots;
@@ -94,34 +92,34 @@ namespace The_wandering_man.sourse.TreasureItems
                 }
                 else if (randomItem == "boss_ring")
                 {
-                    if (BossRingAlready || Map.ShowBossRoomAlways)
+                    if (BossRingAlready || GameScreenModel.ShowBossRoomAlways)
                         continue;
                     BossRingAlready = true;
                     Texture = ItemsTextures.BossRing;
                     Action = SetShowBossRoomAlways;
-                    Cost = 0;
+                    Cost = 10;
                 }
                 else if (randomItem == "holly_mental")
                 {
-                    if (HollyMentalTearsAlready || Health.IsHollyMental)
+                    if (HollyMentalTearsAlready || GameScreenModel.IsHollyMental)
                         continue;
                     HollyMentalTearsAlready = true;
                     Texture = ItemsTextures.HollyMental;
                     Action = GetHollyMental;
-                    Cost = 0;
+                    Cost = 15;
                 }
                 else if (randomItem == "knockback_amulet")
                 {
-                    if (KnockbackAmuletAlready || PlayerModel.IsKnockbackAmulet)
+                    if (KnockbackAmuletAlready || GameScreenModel.IsKnockbackAmulet)
                         continue;
                     KnockbackAmuletAlready = true;
                     Texture = ItemsTextures.KnockbackAmulet;
                     Action = GetKnockbackAmulet;
-                    Cost = 0;
+                    Cost = 15;
                 }
                 else if (randomItem == "spectral-tears")
                 {
-                    if (SpectralTearsAlready || BulletModel.SpectralTears)
+                    if (SpectralTearsAlready || GameScreenModel.SpectralTears)
                         continue;
                     SpectralTearsAlready = true;
                     Texture = ItemsTextures.SpectralTears;
@@ -158,17 +156,17 @@ namespace The_wandering_man.sourse.TreasureItems
 
         private static void GetFly()
         {
-            PlayerModel.GetFly();
+            GameScreenModel.GetPlayerFly();
         }
 
         private static void GetKnockbackAmulet()
         {
-            PlayerModel.GetKnockbackAmulet();
+            GameScreenModel.GetKnockbackAmulet();
         }
 
         private static void GetSpectralTears()
         {
-            BulletModel.Spectral();
+            GameScreenModel.GetSpectralTears();
         }
 
         private static void DamageUp()
@@ -184,12 +182,12 @@ namespace The_wandering_man.sourse.TreasureItems
 
         private static void GetHollyMental()
         {
-            Health.GetHollyMental();
+            GameScreenModel.GetHollyMental();
         }
 
         private static void SetShowBossRoomAlways()
         {
-            Map.SetShowBossRoomAlways();
+            GameScreenModel.SetShowBossRoomAlways();
         }
 
         public static void RestartTreasure()

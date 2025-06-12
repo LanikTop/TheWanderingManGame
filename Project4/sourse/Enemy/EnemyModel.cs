@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using The_wandering_man.sourse.Enemy;
 using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse.Bullet;
 using TheWanderingMan.sourse.Player;
-using TheWanderingMan.sourse.Room;
-
 
 namespace TheWanderingMan.sourse.Enemy
 {
     public abstract class EnemyModel
     {
-        public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
-        public int SizeX { get; set; }
-        public int SizeY { get; set; }
-        public float speed { get; set; }
-        public float healthCount { get; set; }
-        public EnemyTypes EnemyType;
+        public Vector2 Position { get; protected set; }
+        public Vector2 Direction { get; protected set; }
+        public int SizeX { get; protected set; }
+        public int SizeY { get; protected set; }
+        public float speed { get; protected set; }
+        public float healthCount { get; protected set; }
+        public EnemyTypes EnemyType { get; protected set; }
         private static float knockbackForce = 350f;
         private Vector2 knockbackVelocity;
-        public static Vector2 PlayerPos;
+        public static Vector2 PlayerPos { get; private set; }
 
         public abstract void Move(GameTime gameTime);
 
@@ -62,10 +58,11 @@ namespace TheWanderingMan.sourse.Enemy
                         BulletModel.RemoveBulletInIndex(j);
                     }
                 }
-                if (!(enemy is Mole) && !(enemy is Sonic))
+                if (!(enemy is Mole) && !(enemy is Sonic) && !(enemy is LittleMole))
                     enemy.UpdateKnockbackEnemy(gameTime);
                 if (enemy.healthCount <= 0)
                 {
+                    GameScreenModel.KilledEnemysAdd();
                     GameScreenModel.CurrentRoom.Enemys.RemoveAt(i);
                 }
             }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TheWanderingMan.Code.Game;
 using TheWanderingMan.sourse;
 
 namespace The_wandering_man.sourse.EndScreen
@@ -13,6 +9,7 @@ namespace The_wandering_man.sourse.EndScreen
     {
         public static Texture2D Background { get; set; }
         public static Texture2D EndSwitcher { get; set; }
+        public static SpriteFont Font { get; set; }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
@@ -21,6 +18,8 @@ namespace The_wandering_man.sourse.EndScreen
                 spriteBatch.Draw(EndSwitcher, new Rectangle(Game1.ScreenWidth / 2 - 260, Game1.ScreenHeight / 2 + 180, 50, 40), Color.White);
             else
                 spriteBatch.Draw(EndSwitcher, new Rectangle(Game1.ScreenWidth / 2 + 40, Game1.ScreenHeight / 2 + 180, 50, 40), Color.White);
+            spriteBatch.DrawString(Font, GameScreenModel.CountFloarsComplete.ToString(), new Vector2(Game1.ScreenWidth / 2 - 200, Game1.ScreenHeight / 2 - 240), Color.White);
+            spriteBatch.DrawString(Font, GameScreenModel.CountEnemysKilled.ToString(), new Vector2(Game1.ScreenWidth / 2 - 200, Game1.ScreenHeight / 2 - 200), Color.White);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace The_wandering_man.sourse.Enemy
 {
     public class Fly : EnemyModel
     {
-        public static float speedRandom = 0.3f;
+        private static float speedRandom = 0.3f;
 
         public Fly(Vector2 position)
         {

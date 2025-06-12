@@ -13,7 +13,6 @@ namespace TheWanderingMan.sourse.Map
         private bool TreasurAlready = false;
         private bool EndAlready = false;
         private bool ShopAlready = false;
-        public static bool ShowBossRoomAlways { get; private set; } = false;
 
         public Map()
         {
@@ -89,16 +88,6 @@ namespace TheWanderingMan.sourse.Map
             {
                 floorPlan[y, x - 1], floorPlan[y, x + 1], floorPlan[y - 1, x], floorPlan[y + 1, x]
             };
-        }
-
-        public static void SetShowBossRoomAlways()
-        {
-            ShowBossRoomAlways = true;
-        }
-
-        public static void Reset()
-        {
-            ShowBossRoomAlways = false;
         }
     }
 }

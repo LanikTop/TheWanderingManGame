@@ -16,9 +16,6 @@ namespace TheWanderingMan.sourse.Player
         public static float Speed { get; private set; } = 8f;
         public static float Damage { get; private set; } = 1f;
         public static int MoneyCount { get; private set; } = 0;
-        public static bool IsFly { get; private set; } = false;
-        public static bool IsKnockbackAmulet { get; private set; } = false;
-
         public static bool IsInvulnerable { get; private set; }
         private static float knockbackForce = 200f;
         private static float invulnerabilityDuration = 1.5f;
@@ -88,7 +85,7 @@ namespace TheWanderingMan.sourse.Player
                 var tileY = (int)Math.Floor(Position.Y / RoomModel.tileSizeY);
                 if (tileX == 6 && tileY == 3)
                 {
-                    GameScreenModel.IsFade = true;
+                    GameScreenModel.InstallFade();
                     Position = new Vector2(RoomModel.tileSizeX * 6.5f, RoomModel.tileSizeY * 3.5f);
                 }
             }
@@ -115,7 +112,7 @@ namespace TheWanderingMan.sourse.Player
             futureBounds.Y += (int)(Speed * Direction.Y);
 
             if (!CheckCollisions.CheckCollisionWithMap(futureBounds)
-                || (IsFly && (Position.X - (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX > 0 && (Position.X + (int)(RoomModel.tileSizeX * 0.4f) + Speed* Direction.X) / RoomModel.tileSizeX <
+                || (GameScreenModel.IsPlayerFly && (Position.X - (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX > 0 && (Position.X + (int)(RoomModel.tileSizeX * 0.4f) + Speed* Direction.X) / RoomModel.tileSizeX <
                 GameScreenModel.CurrentRoom.TileRoom.GetLength(1)
                 && (Position.Y - (int)(RoomModel.tileSizeY * 0.4f) + Speed * Direction.Y) / RoomModel.tileSizeY > 0 && (Position.Y + (int)(RoomModel.tileSizeY * 0.4f) + Speed * Direction.Y) / RoomModel.tileSizeY < GameScreenModel.CurrentRoom.TileRoom.GetLength(0)))
             {
@@ -132,7 +129,7 @@ namespace TheWanderingMan.sourse.Player
             if (isXAxis)
             {
                 testBounds.X += (int)(Speed * Direction.X);
-                if (!CheckCollisions.CheckCollisionWithMap(testBounds) || (IsFly && (Position.X - (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX > 0 && (Position.X + (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX <
+                if (!CheckCollisions.CheckCollisionWithMap(testBounds) || (GameScreenModel.IsPlayerFly && (Position.X - (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX > 0 && (Position.X + (int)(RoomModel.tileSizeX * 0.4f) + Speed * Direction.X) / RoomModel.tileSizeX <
                 GameScreenModel.CurrentRoom.TileRoom.GetLength(1)))
                 {
                     MovePlayer((int)(Speed * Direction.X), 0);
@@ -162,7 +159,7 @@ namespace TheWanderingMan.sourse.Player
             {
                 testBounds.Y += (int)(Speed * Direction.Y);
                 if (!CheckCollisions.CheckCollisionWithMap(testBounds)
-                    || (IsFly && (Position.Y - (int)(RoomModel.tileSizeY * 0.4f) + Speed * Direction.Y) / RoomModel.tileSizeY > 0
+                    || (GameScreenModel.IsPlayerFly && (Position.Y - (int)(RoomModel.tileSizeY * 0.4f) + Speed * Direction.Y) / RoomModel.tileSizeY > 0
                     && (Position.Y + (int)(RoomModel.tileSizeY * 0.4f) + Speed * Direction.Y) / RoomModel.tileSizeY < GameScreenModel.CurrentRoom.TileRoom.GetLength(0)))
                 {
                     MovePlayer(0, (int)(Speed * Direction.Y));
@@ -202,7 +199,7 @@ namespace TheWanderingMan.sourse.Player
             if (knockbackDirection != Vector2.Zero)
                 knockbackDirection.Normalize();
             knockbackVelocity = knockbackDirection * knockbackForce;
-            if (IsKnockbackAmulet)
+            if (GameScreenModel.IsKnockbackAmulet)
             {
                 EnemyModel.UpdateKnockbackForceForAmulet();
                 foreach (var enemy in GameScreenModel.CurrentRoom.Enemys)
@@ -280,16 +277,6 @@ namespace TheWanderingMan.sourse.Player
             Direction = newDir;
         }
 
-        public static void GetFly()
-        {
-            IsFly = true;
-        }
-
-        public static void GetKnockbackAmulet()
-        {
-            IsKnockbackAmulet = true;
-        }
-
         public static void GetMoney(int amount)
         {
             MoneyCount += amount;
@@ -309,10 +296,9 @@ namespace TheWanderingMan.sourse.Player
             Speed = 8f;
             Damage = 1f;
             MoneyCount = 0;
-            IsFly = false;
-            IsKnockbackAmulet = false;
             IsInvulnerable = false;
             isVisible = true;
+            knockbackVelocity = Vector2.Zero;
         }
     }
 }

@@ -5,7 +5,6 @@ public static class BreadthFirstSearch
 {
     public static List<Vector2> FindPath(int[,] grid, Vector2 start, Vector2 goal)
     {
-        // Проверка на валидность входных данных
         if (start.X < 0 || start.Y < 0 || goal.X < 0 || goal.Y < 0 ||
             start.X >= grid.GetLength(1) || start.Y >= grid.GetLength(0) ||
             goal.X >= grid.GetLength(1) || goal.Y >= grid.GetLength(0))
