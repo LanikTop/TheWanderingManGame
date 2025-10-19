@@ -9,4 +9,4 @@
 
 ## ⚙️ Установка
 Скачайте проект
-Запустите его
+Исполняемый файл .exe в папке /The Wandering Man/The wandering man.exe
